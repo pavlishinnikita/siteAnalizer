@@ -1,0 +1,16 @@
+{
+  "name": "nikita/siteAnalise",
+  "description": "",
+  "type": "project",
+  "require": {
+    "phpoffice/phpexcel": "^1.8.1",
+    "php": " >= 5.2.0",
+    "ext-xml": "*",
+    "ext-xmlwriter": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\":"app/"
+    }
+  }
+}
