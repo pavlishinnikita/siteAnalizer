@@ -23,6 +23,6 @@ class WordConstant
 
     // HOST constants //
     const HOST_EXIST_TEXT = "Проверка указания директивы Host";
-    const TEXT_FAIL_ALL = "Опаньки :) Проверка невозможна, так как директива Host отсутствует";
     // HOST constants //
+    const TEXT_FAIL_ALL = "Опаньки :) Проверка невозможна, так как директива Host отсутствует";
 }
