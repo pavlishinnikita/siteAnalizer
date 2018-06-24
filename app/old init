@@ -1,0 +1,67 @@
+for($i = 0; $i < 5; $i++) { // столбцы
+                $counterForMerge = 0;
+                $counterForMergeCell = 0;
+                $test = true;
+                for ($j = 3; $j < 20; $j++) { //строки
+                    $counterForMerge++;
+                    $counterForMergeCell++;
+                    if($counterForMerge%3 == 0) { // делаю полоску
+                        $counterForMergeCell = 0;
+                        if($i != 4) {
+                            $sheet->mergeCellsByColumnAndRow($i, $j, $i + 1, $j);
+                        }
+                        continue;
+                    }
+                    switch ($i) {
+                        case 0:
+                            $sheet->setCellValueByColumnAndRow($i, $j, "$data->file_size");
+                            break;
+                        case 1:
+                            $sheet->setCellValueByColumnAndRow($i, $j, self::ROBOTS_EXIST_TEXT);
+                            break;
+                        case 2:
+                            if($data->file_exist) {
+                                $color = '00ff00';
+                                $status = 'OK';
+                            } else {
+                                $color = 'ff0000';
+                                $status = 'Ошибка';
+                            }
+                            $sheet->getStyleByColumnAndRow($i, $j, $i, $j)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+                            $sheet -> getStyleByColumnAndRow($i, $j, $i, $j)->getFill()->getStartColor()->setRGB($color);
+                            $sheet->setCellValueByColumnAndRow($i, $j, $status);
+                            break;
+                        case 3:
+                            if($test == true) {
+                                $sheet->setCellValueByColumnAndRow($i, $j, "Состояние");
+                                $test = false;
+                            } else {
+                                $sheet->setCellValueByColumnAndRow($i, $j, "Рекомендация");
+                                $test = true;
+                            }
+                            break;
+                        case 4:
+                            if($data->file_exist) {
+                                $textStatus = 'Файл robots.txt присутствует';
+                                $textRecommendations = "Доработки не требуются";
+                            } else {
+                                $textStatus = 'Файл robots.txt отсутствует';
+                                $textRecommendations = "Программист: Создать файл robots.txt и разместить его на сайте.";
+                            }
+                            if($test == true) {
+                                $sheet->setCellValueByColumnAndRow($i, $j, $textStatus);
+                                $test = false;
+                            } else {
+                                $sheet->setCellValueByColumnAndRow($i, $j, $textRecommendations);
+                                $test = true;
+                            }
+                            break;
+                    }
+                    if($counterForMergeCell%2 != 0) {
+                        if($i != 3 && $i != 4) {
+                            $sheet->mergeCellsByColumnAndRow($i, $j, $i, $j + 1);
+                            continue;
+                        }
+                    }
+                }
+            }
