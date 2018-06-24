@@ -12,7 +12,6 @@ namespace App;
 class FileInspector
 {
     private $curl;
-    private $excel_helper;
     private $data_model;
     private $robot_text;
     private const HTTP_OK = 200;
@@ -20,7 +19,6 @@ class FileInspector
     {
         $this->curl = curl_init("$site//robots.txt");
         $this->data_model = new DataModel();
-        $this->excel_helper = new ExcelHelper();
         $this->data_model->site_name = $site;
         $this->data_model->file_exist = $this->file_exist();
         $this->data_model->file_size = $this->file_size($this->robot_text);
@@ -44,7 +42,7 @@ class FileInspector
         $fd = fopen("temp//robots.txt","w");
         fwrite($fd, $server_answer);
         fclose($fd);
-        return filesize("temp//robots.txt");
+        return round(filesize("temp//robots.txt") / 1000);
     }
     public function debug($item) {
         echo "<pre>";
@@ -59,15 +57,16 @@ class FileInspector
         preg_match_all($regexp, $text, $answer_arr_sitemap);
         $this->data_model->host_count = count($answer_arr_host[0]);
         if($this->data_model->host_count == 0) {
-            die("Опаньки :) Проверка невозможна, так как директива Host отсутствует");
+            die(WordConstant::TEXT_FAIL_ALL);
         }
         $this->data_model->host_exist = true;
         if(count($answer_arr_sitemap[0]) > 0) {
             $this->data_model->sitemap_exist = true;
         }
     }
-    public function startExcel()
+    public function createReport()
     {
-        $this->excel_helper->create($this->data_model);
+        $excel_helper = new ExcelHelper();
+        $excel_helper->create($this->data_model);
     }
 }

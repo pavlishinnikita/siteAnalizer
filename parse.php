@@ -9,4 +9,4 @@
 require_once 'vendor/autoload.php';
 $site = $_GET['site'];
 $fileInspector = new \App\FileInspector($site);
-$fileInspector->startExcel();
+$fileInspector->createReport();
