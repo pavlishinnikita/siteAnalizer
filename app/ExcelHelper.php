@@ -219,7 +219,7 @@ class ExcelHelper
                     } else {
                         $status = WordConstant::STATUS_OK;
                         $color = WordConstant::COLOR_FAIL;
-                        $state = 'В файле robots.txt не указана директива Host';
+                        $state = WordConstant::HOST_ERROR_STATE_TEXT;
                         $textRecommendations = "Программист: Для того, чтобы поисковые системы знали, какая версия сайта является основных зеркалом, необходимо прописать адрес основного зеркала в директиве Host. В данный момент это не прописано. Необходимо добавить в файл robots.txt директиву Host. Директива Host задётся в файле 1 раз, после всех правил.";
                     }
                     $this->fill_task($sheet,$y, WordConstant::HOST_EXIST_TEXT, $status, $color, $state,

@@ -23,6 +23,8 @@ class WordConstant
 
     // HOST constants //
     const HOST_EXIST_TEXT = "Проверка указания директивы Host";
+    const HOST_ERROR_STATE_TEXT = "'В файле robots.txt не указана директива Host';";
     // HOST constants //
     const TEXT_FAIL_ALL = "Опаньки :) Проверка невозможна, так как директива Host отсутствует :(";
+
 }
